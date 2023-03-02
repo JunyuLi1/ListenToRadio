@@ -5,9 +5,9 @@
 
 # Replace the following placeholders with your information.
 
-# NAME
-# EMAIL
-# STUDENT ID
+# Junyu Li
+# junyul24@uci.edu
+# 86676906
 
 from abc import ABC, abstractmethod
 
