@@ -1,5 +1,4 @@
 # openweather.py
-import http.client
 # Starter code for assignment 4 in ICS 32
 # Programming with Software Libraries in Python
 
@@ -11,6 +10,7 @@ import http.client
 # 86676906
 import urllib
 import json
+import http.client
 from urllib import request, error
 
 
@@ -29,13 +29,33 @@ class OpenWeather:
     city: str
 
     def __init__(self, zipcode, ccode):
-        self.zipcode = zipcode
-        self.ccode = ccode
+        try:
+            assert type(zipcode) is str
+            assert type(ccode) is str
+            assert len(zipcode) > 0
+            assert len(ccode) > 0
+            if zipcode.isspace():
+                raise AssertionError
+            if ccode.isspace():
+                raise AssertionError
+        except AssertionError:
+            print('Invalid zipcode and ccode.')
+        else:
+            self.zipcode = zipcode
+            self.ccode = ccode
 
     def set_apikey(self, apikey: str) -> None:
         """Set apikey"""
         # TODO: assign apikey value to a class data attribute that can be accessed by class members
-        self.apikey = apikey
+        try:
+            assert type(apikey) is str
+            assert len(apikey) > 0
+            if apikey.isspace():
+                raise AssertionError
+        except AssertionError:
+            print('Invalid apikey')
+        else:
+            self.apikey = apikey
 
     def load_data(self) -> None:
         '''
@@ -65,6 +85,8 @@ class OpenWeather:
             print('Failed to download contents of URL')
         except ServerUnavailable:
             print('Remote API is unavailable')
+        except InvalidAPIformatError:
+            print('Invalid data formatting from the remote API')
 
 
 class InternetError(Exception):
@@ -83,7 +105,11 @@ class ServerUnavailable(Exception):
     pass
 
 
-def _download_url(url_to_download: str) -> dict:
+class InvalidAPIformatError(Exception):
+    pass
+
+
+def _download_url(url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API
     response = None
     r_obj = None
     try:
@@ -101,6 +127,8 @@ def _download_url(url_to_download: str) -> dict:
         raise InternetError
     except http.client.InvalidURL:
         raise InvalidAPIkeyError
+    except ValueError:
+        raise InvalidAPIformatError
     finally:
         if response is not None:
             response.close()
