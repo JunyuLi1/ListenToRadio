@@ -56,7 +56,7 @@ class OpenWeather:
             self.sunset = json_obj['sys']['sunset']
             self.city = json_obj['name']
 
-    def _download_url(self, url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API
+    def _download_url(self, url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API, 是否引发一个新的异常
         response = None
         r_obj = None
         try:
