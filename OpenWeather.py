@@ -11,11 +11,11 @@
 import urllib
 import json
 from urllib import request, error
+from WebAPI import WebAPI
 
+class OpenWeather(WebAPI):
 
-class OpenWeather:
-
-    def __init__(self, zipcode, ccode):
+    def __init__(self, zipcode="92617", ccode="US"):
         self.zipcode = zipcode
         self.ccode = ccode
         self.apikey = ''
@@ -29,10 +29,9 @@ class OpenWeather:
         self.sunset = 0
         self.city = ''
 
-    def set_apikey(self, apikey: str) -> None:
-        """Set apikey"""
+    """def set_apikey(self, apikey: str) -> None:
         # TODO: assign apikey value to a class data attribute that can be accessed by class members
-        self.apikey = apikey
+        self.apikey = apikey"""
 
     def load_data(self) -> None:
         '''
@@ -56,7 +55,7 @@ class OpenWeather:
             self.sunset = json_obj['sys']['sunset']
             self.city = json_obj['name']
 
-    def _download_url(self, url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API, 是否引发一个新的异常
+    """def _download_url(self, url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API, 是否引发一个新的异常
         response = None
         r_obj = None
         try:
@@ -74,7 +73,18 @@ class OpenWeather:
         finally:
             if response is not None:
                 response.close()
-        return r_obj
+        return r_obj"""
+
+    def transclude(self, message: str) -> str:
+        '''
+        Replaces keywords in a message with associated API data.
+        :param message: The message to transclude
+
+        :returns: The transcluded message
+        '''
+        # TODO: write code necessary to transclude keywords in the message parameter with appropriate data from API
+        newmessage = message.replace('@weather', self.description)
+        return newmessage
 
 
 def main() -> None:
