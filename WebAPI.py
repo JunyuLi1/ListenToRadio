@@ -13,38 +13,48 @@ import urllib
 import json
 from urllib import request, error
 
+
 class WebAPI(ABC):
     apikey: str
 
-    def _download_url(self, url: str) -> dict:
+    def _download_url(self, url_to_download: str) -> dict:
+        """Download url."""
         # TODO: Implement web api request code in a way that supports
         # all types of web APIs
         response = None
         r_obj = None
         try:
-            response = urllib.request.urlopen(url)
+            response = urllib.request.urlopen(url_to_download)
             json_results = response.read()
             r_obj = json.loads(json_results)
         except urllib.error.HTTPError as e:
-            print('Failed to download contents of URL')
-            print('Status code: {}'.format(e.code))
-            print('The remote API is unavailable')
+            if e.code == 404:
+                raise Exception('Remote API is unavailable')
+            if e.code == 503:
+                raise Exception('The Server is unavailable now.')
+            if e.code == 401:
+                raise Exception('The APIkey is invalid.')
+            else:
+                raise Exception(e)
         except urllib.error.URLError:
-            print('Loss of local connection to the Internet')
-        except json.JSONDecodeError:
-            print('Invalid data formatting from the remote API')
+            raise Exception('Loss of local connection to the Internet.')
+        except ValueError:
+            raise Exception('Invalid data formatting from the remote API.')
         finally:
             if response is not None:
                 response.close()
         return r_obj
 
     def set_apikey(self, apikey: str) -> None:
+        """Set apikey."""
         self.apikey = apikey
 
     @abstractmethod
     def load_data(self):
+        """Load data."""
         pass
 
     @abstractmethod
     def transclude(self, message: str) -> str:
+        """Transculde message."""
         pass

@@ -170,7 +170,7 @@ def C_O_further(path):
             if user_inpt2 == '4':
                 print('\nWhen adding post, you can also include two keywords for getting API from web')  # 两个KEYWORDS
                 print('@weather - receive weather information from OpenWeather Website.')
-                print('@lastfm - receive top tag music from Lastfm Website.')
+                print('@lastfm - receive music tags from Lastfm Website.')
                 print('For example, you can enter:"It is @weather outside and I am thrilled!"')
                 user_inpt3 = input('Please enter post: ')
                 if len(user_inpt3) == 0:

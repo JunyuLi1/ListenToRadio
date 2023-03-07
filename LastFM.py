@@ -2,7 +2,7 @@
 
 # Starter code for assignment 4 in ICS 32
 # Programming with Software Libraries in Python
-
+# My apikey for lastfm is: 9e378b414d40568750b1dcbc42d0d6cd
 # Replace the following placeholders with your information.
 
 # Junyu Li
@@ -13,14 +13,12 @@ import json
 from urllib import request, error
 from WebAPI import WebAPI
 
+
 class LastFM(WebAPI):
 
     def __init__(self):
         self.toptagname = ''
-
-    """def set_apikey(self, apikey: str) -> None:
-        # TODO: assign apikey value to a class data attribute that can be accessed by class members
-        self.apikey = apikey"""
+        self.apikey = ''
 
     def load_data(self) -> None:
         '''
@@ -31,30 +29,10 @@ class LastFM(WebAPI):
         try:
             url = f"http://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key={self.apikey}&format=json"
             json_obj = self._download_url(url)
-        except json.JSONDecodeError:
-            print("Json cannot be decoded.")
+        except Exception as e:
+            print(f'Failed to download contents of URL because {e}')
         else:
             self.toptagname = json_obj['toptags']['tag'][0]['name']
-
-    """def _download_url(self, url_to_download: str) -> dict:  # 这里处理Invalid data formatting from the remote API, 是否引发一个新的异常
-        response = None
-        r_obj = None
-        try:
-            response = urllib.request.urlopen(url_to_download)
-            json_results = response.read()
-            r_obj = json.loads(json_results)
-        except urllib.error.HTTPError as e:
-            print('Failed to download contents of URL')
-            print('Status code: {}'.format(e.code))
-            print('The remote API is unavailable')
-        except urllib.error.URLError:
-            print('Loss of local connection to the Internet')
-        except json.JSONDecodeError:
-            print('Invalid data formatting from the remote API')
-        finally:
-            if response is not None:
-                response.close()
-        return r_obj"""
 
     def transclude(self, message: str) -> str:
         '''

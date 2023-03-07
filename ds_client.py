@@ -124,6 +124,7 @@ def bio_server(ip_address, port2, bio, user_token):
 
 
 def process_message(message):
+    """Transclude messages."""
     if '@weather' in message:
         open_weather = OpenWeather.OpenWeather()
         open_weather.set_apikey("03657b48a28c90947a8068f1f2608dfc")  # 这里set apikey
