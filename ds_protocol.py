@@ -1,6 +1,6 @@
 # ds_protocol.py
 
-# Starter code for assignment 3 in ICS 32
+# Starter code for assignment 4 in ICS 32
 # Programming with Software Libraries in Python
 
 # Replace the following placeholders with your information.
@@ -8,6 +8,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Receive data from DS server and make protocols."""
 import json
 import time
 from collections import namedtuple

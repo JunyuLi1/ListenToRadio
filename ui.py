@@ -1,6 +1,6 @@
 # ui.py
 
-# Starter code for assignment 2 in ICS 32
+# Starter code for assignment 4 in ICS 32
 # Programming with Software Libraries in Python
 
 # Replace the following placeholders with your information.
@@ -12,6 +12,8 @@
 import pathlib
 from Profile import *
 import ds_client
+import LastFM
+import OpenWeather
 run = False
 
 
@@ -27,9 +29,9 @@ def menu():
     print('\tQ :Quit the program.')
     print('\tO :Load a DSU file')
     print('\tV: Publish your DSU file journal online.')
-    print('If you want to publish a post with information received from WebAPI, '
-          'the post must contain @keyword locally.\n'
-          'If local does not include such post, please add post loaded by C or O first.\n')
+    print('If you want to add a post with information received from WebAPI by @keywords, '
+          'please use E loaded by C or O first.')
+    print('@keywords will be converted and store locally and then post online.\n')
 
 
 def start():
@@ -184,6 +186,8 @@ def C_O_further(path):
                 elif user_inpt3.isspace():
                     print('Only a whitespace.')
                 else:
+                    if '@weather' in user_inpt3 or '@lastfm' in user_inpt3:
+                        user_inpt3 = process_message(user_inpt3)
                     user_dic['-addpost'] = user_inpt3
             if user_inpt2 == '5':
                 obj = Profile()
@@ -669,3 +673,26 @@ def publish_together(path):
         pwd = obj.password
         bio = obj.bio
         ds_client.send(ip, 3021, name, pwd, entry, bio)
+
+
+def process_message(message):
+    """Transclude messages."""
+    if '@weather' in message:
+        user_input1 = input('Please enter a zip code(5-digits): ')
+        user_input2 = input('Please enter a country code(such as US): ')
+        user_input3 = input('Please enter your Openweather WebAPI key\n'
+                            'You can also use 03657b48a28c90947a8068f1f2608dfc instead of your own: ')
+        open_weather = OpenWeather.OpenWeather(user_input1, user_input2)
+        open_weather.set_apikey(user_input3)  # "03657b48a28c90947a8068f1f2608dfc"
+        open_weather.load_data()
+        new_message = open_weather.transclude(message)
+        return process_message(new_message)
+    if '@lastfm' in message:
+        last_fm = LastFM.LastFM()
+        user_input = input('Please enter apikey for lastfm WebAPI\n'
+                           'You can also use 9e378b414d40568750b1dcbc42d0d6cd instead of your own: ')  # '9e378b414d40568750b1dcbc42d0d6cd'
+        last_fm.set_apikey(user_input)
+        last_fm.load_data()
+        new_message = last_fm.transclude(message)
+        return process_message(new_message)
+    return message
