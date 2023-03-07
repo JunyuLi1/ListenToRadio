@@ -8,6 +8,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module for Lastfm WebAPI"""
 import urllib
 import json
 from urllib import request, error

@@ -30,4 +30,3 @@ lastfm = LastFM()
 test_api("Testing the weather: @weather", "03657b48a28c90947a8068f1f2608dfc", open_weather)
 
 test_api("Testing lastFM: @lastfm", "9e378b414d40568750b1dcbc42d0d6cd", lastfm)
-

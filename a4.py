@@ -8,6 +8,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module as entry"""
 import ui
 import sys
 
@@ -54,4 +55,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main()  # PDOC, ui的修改

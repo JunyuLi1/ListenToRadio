@@ -8,6 +8,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module for ui"""
 import pathlib
 from Profile import *
 import ds_client
@@ -16,7 +17,7 @@ run = False
 
 def menu():
     """Print the menu of instruction."""
-    print('----------------------------------------------')
+    print('\n----------------------------------------------')
     print('Welcome to the file operator.\n')
     print('This operator allows you to do following things:')
     print('\tL: List the contents of the user specified directory.')
@@ -26,6 +27,9 @@ def menu():
     print('\tQ :Quit the program.')
     print('\tO :Load a DSU file')
     print('\tV: Publish your DSU file journal online.')
+    print('If you want to publish a post with information received from WebAPI, '
+          'the post must contain @keyword locally.\n'
+          'If local does not include such post, please add post loaded by C or O first.\n')
 
 
 def start():
@@ -168,10 +172,12 @@ def C_O_further(path):
                 else:
                     user_dic['-bio'] = user_inpt3
             if user_inpt2 == '4':
-                print('\nWhen adding post, you can also include two keywords for getting API from web')  # 两个KEYWORDS
-                print('@weather - receive weather information from OpenWeather Website.')
-                print('@lastfm - receive music tags from Lastfm Website.')
-                print('For example, you can enter:"It is @weather outside and I am thrilled!"')
+                user_input4 = input('Do you want to add information received from WebAPI?(Y/N): ')
+                if user_input4 == 'Y':
+                    print('\nYou can include two WebAPI keywords')  # 两个KEYWORDS
+                    print('\t@weather - receive weather information from OpenWeather Website.')
+                    print('\t@lastfm - receive music tags from Lastfm Website.')
+                    print('For example, you can enter:"It is @weather outside and I am thrilled!"\n')
                 user_inpt3 = input('Please enter post: ')
                 if len(user_inpt3) == 0:
                     print('Empty string.')

@@ -5,11 +5,12 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module of sending information to server"""
 import socket
 import ds_protocol
 import OpenWeather
 import LastFM
-import WebAPI
+
 
 class JoinserverError(Exception):
     pass

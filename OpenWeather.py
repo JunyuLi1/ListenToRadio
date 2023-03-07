@@ -7,6 +7,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module for Openweather WebAPI"""
 from WebAPI import WebAPI
 
 

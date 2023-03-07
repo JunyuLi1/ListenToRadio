@@ -8,6 +8,7 @@
 # Junyu Li
 # junyul24@uci.edu
 # 86676906
+"""Module for a superclass of two API classes."""
 from abc import ABC, abstractmethod
 import urllib
 import json
