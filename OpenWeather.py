@@ -14,6 +14,7 @@ from WebAPI import WebAPI
 class OpenWeather(WebAPI):
 
     def __init__(self, zipcode="92697", ccode="US"):
+        super().__init__()
         self.zipcode = zipcode
         self.ccode = ccode
         self.apikey = ''

@@ -9,15 +9,13 @@
 # junyul24@uci.edu
 # 86676906
 """Module for Lastfm WebAPI"""
-import urllib
-import json
-from urllib import request, error
 from WebAPI import WebAPI
 
 
 class LastFM(WebAPI):
 
     def __init__(self):
+        super().__init__()
         self.toptagname = ''
         self.apikey = ''
 

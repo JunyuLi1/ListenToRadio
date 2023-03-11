@@ -24,7 +24,7 @@ def test_api(message:str, apikey:str, webapi:WebAPI):
   print(result)
 
 
-open_weather = OpenWeather() #notice there are no params here...HINT: be sure to use parameter defaults!!!
+open_weather = OpenWeather('92617','US') #notice there are no params here...HINT: be sure to use parameter defaults!!!
 lastfm = LastFM()
 
 test_api("Testing the weather: @weather", "03657b48a28c90947a8068f1f2608dfc", open_weather)

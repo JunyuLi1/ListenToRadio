@@ -16,7 +16,8 @@ from urllib import request, error
 
 
 class WebAPI(ABC):
-    apikey: str
+    def __init__(self):
+        self.apikey = ''
 
     def _download_url(self, url_to_download: str) -> dict:
         """Download url."""

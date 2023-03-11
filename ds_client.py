@@ -50,8 +50,6 @@ def send(server: str, port: int, username: str, password: str, message: str, bio
                         raise ValueError
                     if len(message) == 0:
                         raise ValueError
-                    #if '@weather' in message or '@lastfm' in message:
-                        #message2 = process_message(message)
                     return post_server(server, port, message, token)
                 if bio is not None:  # If post all, what should we return?
                     if bio.isspace():
@@ -63,8 +61,6 @@ def send(server: str, port: int, username: str, password: str, message: str, bio
                     else:
                         if message.isspace():
                             raise ValueError
-                        #if '@weather' in message or '@lastfm' in message:
-                            #message2 = process_message(message)
                         r1, r2 = post_server(server, port, message, token), bio_server(server, port, bio, token)
                         if r1 is True and r2 is True:
                             return True
@@ -120,22 +116,6 @@ def bio_server(ip_address, port2, bio, user_token):
         else:
             print(ds_protocol.extract_json(join_message).message)
             return True
-
-
-"""def process_message(message):
-    if '@weather' in message:
-        open_weather = OpenWeather.OpenWeather()
-        open_weather.set_apikey("03657b48a28c90947a8068f1f2608dfc")  # 这里set apikey
-        open_weather.load_data()
-        new_message = open_weather.transclude(message)
-        return process_message(new_message)
-    if '@lastfm' in message:
-        last_fm = LastFM.LastFM()
-        last_fm.set_apikey('9e378b414d40568750b1dcbc42d0d6cd')  # 这里set apikey
-        last_fm.load_data()
-        new_message = last_fm.transclude(message)
-        return process_message(new_message)
-    return message"""
 
 
 if __name__ == '__main__':
