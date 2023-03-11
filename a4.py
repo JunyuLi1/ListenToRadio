@@ -9,8 +9,8 @@
 # junyul24@uci.edu
 # 86676906
 """Module as entry"""
-import ui
 import sys
+import ui
 
 
 def main():
@@ -41,7 +41,8 @@ def main():
             sys.exit(0)
         if user_input2 == 'V':
             user_lis = ui.path_interact(user_input2)
-            user_input2 = input('Do you want to publish bio and post together?(Y/N): ')
+            user_input2 = input('Do you want to publish bio '
+                                'and post together?(Y/N): ')
             if user_input2 == 'Y':
                 ui.publish_together(user_lis[1])
             else:
@@ -55,4 +56,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()  # PDOC, ui的修改
+    main()  # PDOC, ui

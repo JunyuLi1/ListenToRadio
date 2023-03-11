@@ -11,10 +11,11 @@ import ds_protocol
 
 
 class JoinserverError(Exception):
+    """Create an exception."""
     pass
 
 
-def send(server: str, port: int, username: str, password: str, message: str, bio: str = None):
+def send(server, port, username, password, message, bio=None):
     """
   The send function joins a ds server and sends a message, bio, or both
 
@@ -25,7 +26,6 @@ def send(server: str, port: int, username: str, password: str, message: str, bio
   :param message: The message to be sent to the server.
   :param bio: Optional, a bio for the user.
   """
-    # TODO: return either True or False depending on results of required operation
     try:
         assert type(server) is str
         assert type(port) is int
@@ -61,7 +61,8 @@ def send(server: str, port: int, username: str, password: str, message: str, bio
                     else:
                         if message.isspace():
                             raise ValueError
-                        r1, r2 = post_server(server, port, message, token), bio_server(server, port, bio, token)
+                        r1 = post_server(server, port, message, token)
+                        r2 = bio_server(server, port, bio, token)
                         if r1 is True and r2 is True:
                             return True
                         else:
@@ -73,7 +74,8 @@ def send(server: str, port: int, username: str, password: str, message: str, bio
         print('Invalid password or username already taken')
         return False
     except ValueError:
-        print('You cannot publish posts or bios that are empty or just whitespace.')
+        print('You cannot publish posts or bios '
+              'that are empty or just whitespace.')
         return False
     except ConnectionRefusedError:
         print('Cannot connect to the server that you specified.')

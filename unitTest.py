@@ -29,10 +29,10 @@ class testOpenweather(unittest.TestCase):
         # Action Phrase
         open_weather = OpenWeather()
         apikey = "03657b48a28c90947a8068f1f2608dfc"
-        result = download_data("Testing the weather: @weather", apikey, open_weather)
+        result = download_data("Testing the weather: @weather",
+                               apikey, open_weather)
         # Assert Phrase
         assert message == result
-
 
 
 class testlastfm(unittest.TestCase):

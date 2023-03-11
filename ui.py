@@ -29,9 +29,11 @@ def menu():
     print('\tQ :Quit the program.')
     print('\tO :Load a DSU file')
     print('\tV: Publish your DSU file journal online.')
-    print('If you want to add a post with information received from WebAPI by @keywords, '
+    print('If you want to add a post with information '
+          'received from WebAPI by @keywords, '
           'please use E loaded by C or O first.')
-    print('@keywords will be converted and store locally and then post online.\n')
+    print('@keywords will be converted and store '
+          'locally and then post online.\n')
 
 
 def start():
@@ -88,6 +90,7 @@ def L_option_interact(inp_lis):
 
 
 def L_option_menu():
+    """Print menu"""
     print('\n-r: Output directory content recursively.')
     print('\t(You can add -r before following)')
     print('-f: Output only files, excluding directories in the results.')
@@ -96,6 +99,7 @@ def L_option_menu():
 
 
 def L_option2(inp_lis):
+    """Run L option"""
     try:
         if len(inp_lis) >= 4:
             raise ValueError
@@ -174,12 +178,17 @@ def C_O_further(path):
                 else:
                     user_dic['-bio'] = user_inpt3
             if user_inpt2 == '4':
-                user_input4 = input('Do you want to add information received from WebAPI?(Y/N): ')
+                user_input4 = input('Do you want to add information '
+                                    'received from WebAPI?(Y/N): ')
                 if user_input4 == 'Y':
-                    print('\nYou can include two WebAPI keywords')  # 两个KEYWORDS
-                    print('\t@weather - receive weather information from OpenWeather Website.')
-                    print('\t@lastfm - receive music tags from Lastfm Website.')
-                    print('For example, you can enter:"It is @weather outside and I am thrilled!"\n')
+                    print('\nYou can include two '
+                          'WebAPI keywords')
+                    print('\t@weather - receive weather '
+                          'information from OpenWeather Website.')
+                    print('\t@lastfm - receive top music\'s tags'
+                          ' from Lastfm Website.')
+                    print('For example, you can enter:"It is '
+                          '@weather outside and I am thrilled!"\n')
                 user_inpt3 = input('Please enter post: ')
                 if len(user_inpt3) == 0:
                     print('Empty string.')
@@ -394,7 +403,8 @@ def C_command(inp_lis):
                 raise AssertionError
             pathlib.Path(ne_path).touch()
             print(pathlib.Path(ne_path), 'CREATED')
-            obj = Profile(dsuserver=dsuserver1, username=username1, password=password1)
+            obj = Profile(dsuserver=dsuserver1,
+                          username=username1, password=password1)
             obj.bio = bio1
             obj.save_profile(ne_path)
             result = C_O_further(ne_path)
@@ -404,7 +414,8 @@ def C_command(inp_lis):
             if type(result) is list:
                 P_command(result, ne_path)
             if type(result) is str:
-                user_input2 = input('Do you want to publish bio and post together?(Y/N): ')
+                user_input2 = input('Do you want to publish '
+                                    'bio and post together?(Y/N): ')
                 if user_input2 == 'Y':
                     publish_together(ne_path)
                 else:
@@ -474,6 +485,7 @@ def R_command(inp_lis):
 
 
 def E_command(inp_dic, inp_path):
+    """Run E command"""
     obj = Profile()
     obj.load_profile(inp_path)
     try:
@@ -510,7 +522,8 @@ def E_command(inp_dic, inp_path):
         if '-bio' not in inp_dic:
             publish_change_post(inp_path)
         if '-bio' in inp_dic:
-            user_input2 = input('Do you want to publish bio and post together?(Y/N): ')
+            user_input2 = input('Do you want to publish bio'
+                                ' and post together?(Y/N): ')
             if user_input2 == 'Y':
                 publish_together(inp_path)
             else:
@@ -524,6 +537,7 @@ def E_command(inp_dic, inp_path):
 
 
 def P_command(inp_lis, path):
+    """Run P command"""
     obj = Profile()
     obj.load_profile(path)
     for item in inp_lis:
@@ -571,6 +585,7 @@ def P_command(inp_lis, path):
 
 
 def O_command(in_path):
+    """Run O command"""
     try:
         if pathlib.Path(in_path).suffix != '.dsu':
             raise AssertionError
@@ -588,7 +603,8 @@ def O_command(in_path):
         if type(result) is list:
             P_command(result, in_path)
         if type(result) is str:
-            user_input2 = input('Do you want to publish bio and post together?(Y/N): ')
+            user_input2 = input('Do you want to publish'
+                                ' bio and post together?(Y/N): ')
             if user_input2 == 'Y':
                 publish_together(in_path)
             else:
@@ -681,16 +697,18 @@ def process_message(message):
         user_input1 = input('Please enter a zip code(5-digits): ')
         user_input2 = input('Please enter a country code(such as US): ')
         user_input3 = input('Please enter your Openweather WebAPI key\n'
-                            'You can also use 03657b48a28c90947a8068f1f2608dfc instead of your own: ')
+                            'You can also use 03657b48a28c90947a8068f1f2608dfc'
+                            ' instead of your own: ')
         open_weather = OpenWeather.OpenWeather(user_input1, user_input2)
-        open_weather.set_apikey(user_input3)  # "03657b48a28c90947a8068f1f2608dfc"
+        open_weather.set_apikey(user_input3)
         open_weather.load_data()
         new_message = open_weather.transclude(message)
         return process_message(new_message)
     if '@lastfm' in message:
         last_fm = LastFM.LastFM()
         user_input = input('Please enter apikey for lastfm WebAPI\n'
-                           'You can also use 9e378b414d40568750b1dcbc42d0d6cd instead of your own: ')  # '9e378b414d40568750b1dcbc42d0d6cd'
+                           'You can also use 9e378b414d40568750b1dcbc42d0d6cd'
+                           ' instead of your own: ')
         last_fm.set_apikey(user_input)
         last_fm.load_data()
         new_message = last_fm.transclude(message)

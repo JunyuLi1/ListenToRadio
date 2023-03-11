@@ -13,6 +13,7 @@ from WebAPI import WebAPI
 
 
 class LastFM(WebAPI):
+    """Class of lastFM."""
 
     def __init__(self):
         super().__init__()
@@ -20,13 +21,10 @@ class LastFM(WebAPI):
         self.apikey = ''
 
     def load_data(self) -> None:
-        '''
-        Calls the web api using the required values and stores the response in class data attributes.
-        '''
-        # TODO: use the apikey data attribute and the urllib module to request data from the web api. See sample code at the begining of Part 1 for a hint.
-        # TODO: assign the necessary response data to the required class data attributes
+        """Load data."""
         try:
-            url = f"http://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key={self.apikey}&format=json"
+            url = f"http://ws.audioscrobbler.com/2.0/?method=tag." \
+                  f"getTopTags&api_key={self.apikey}&format=json"
             json_obj = self._download_url(url)
         except Exception as e:
             print(f'Failed to download contents of URL because {e}')
@@ -40,14 +38,15 @@ class LastFM(WebAPI):
 
         :returns: The transcluded message
         '''
-        # TODO: write code necessary to transclude keywords in the message parameter with appropriate data from API
         newmessage = message.replace('@lastfm', self.toptagname)
         return newmessage
 
 
 def main() -> None:
+    """Test how API runs."""
     apikey = "9e378b414d40568750b1dcbc42d0d6cd"
-    url = f"http://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key={apikey}&format=json"
+    url = f"http://ws.audioscrobbler.com/2.0/?method=tag." \
+          f"getTopTags&api_key={apikey}&format=json"
     obj = LastFM()
     weather_obj = obj._download_url(url)
     if weather_obj is not None:

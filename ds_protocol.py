@@ -19,11 +19,7 @@ DataTuple = namedtuple('DataTuple', ['response', 'type', 'message', 'token'])
 
 
 def extract_json(json_msg: str) -> DataTuple:
-    """
-  Call the json.loads function on a json string and convert it to a DataTuple object
-
-  TODO: replace the pseudo placeholder keys with actual DSP protocol keys
-  """
+    """Call the json.loads function"""
     try:
         json_obj = json.loads(json_msg)
         response = json_obj['response']
@@ -47,8 +43,8 @@ def join_action(name, pwd):
 
 
 def post_action(usertoken, post):
-    timestamp = time.time()
     """Process post action and return the json format."""
+    timestamp = time.time()
     dic = {"token": usertoken, "post": {"entry": post, "timestamp": timestamp}}
     str1 = json.dumps(dic)
     return str1

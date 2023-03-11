@@ -12,7 +12,7 @@ from WebAPI import WebAPI
 
 
 class OpenWeather(WebAPI):
-
+    """Class of OpenWeather"""
     def __init__(self, zipcode="92697", ccode="US"):
         super().__init__()
         self.zipcode = zipcode
@@ -29,13 +29,10 @@ class OpenWeather(WebAPI):
         self.city = ''
 
     def load_data(self) -> None:
-        '''
-        Calls the web api using the required values and stores the response in class data attributes.
-        '''
-        # TODO: use the apikey data attribute and the urllib module to request data from the web api. See sample code at the begining of Part 1 for a hint.
-        # TODO: assign the necessary response data to the required class data attributes
+        """Calls the web api"""
         try:
-            url = f"http://api.openweathermap.org/data/2.5/weather?zip={self.zipcode},{self.ccode}&appid={self.apikey}"
+            url = f"http://api.openweathermap.org/data/2.5/weather?" \
+                  f"zip={self.zipcode},{self.ccode}&appid={self.apikey}"
             json_obj = self._download_url(url)
         except Exception as e:
             print(f'Failed to download contents of URL because {e}')
@@ -57,16 +54,17 @@ class OpenWeather(WebAPI):
 
         :returns: The transcluded message
         '''
-        # TODO: write code necessary to transclude keywords in the message parameter with appropriate data from API
         newmessage = message.replace('@weather', self.description)
         return newmessage
 
 
 def main() -> None:
+    """Test API how to run."""
     zip = "92617"
     ccode = "US"
     apikey = "03657b48a28c90947a8068f1f2608dfc"
-    url = f"http://api.openweathermap.org/data/2.5/weather?zip={zip},{ccode}&appid={apikey}"
+    url = f"http://api.openweathermap.org/data/2.5/" \
+          f"weather?zip={zip},{ccode}&appid={apikey}"
     obj = OpenWeather(zip, ccode)
     weather_obj = obj._download_url(url)
     if weather_obj is not None:

@@ -16,7 +16,9 @@ from urllib import request, error
 
 
 class WebAPI(ABC):
+    """Class of WebAPI"""
     def __init__(self):
+        """Construct webapi objects."""
         self.apikey = ''
 
     def _download_url(self, url_to_download: str) -> dict:
