@@ -10,6 +10,14 @@
 # 86676906
 """Module for Lastfm WebAPI"""
 from WebAPI import WebAPI
+# How to work LastFM:
+# I choose the api method called chart.getTopTags
+# Link:https://www.last.fm/api/show/chart.getTopTags
+# This method can get some tags of popular music.
+# In this assignment, @lastfm will be replaced
+# by the most popular music category
+# If you run this module, you can see
+# The most popular music tag is rock music.
 
 
 class LastFM(WebAPI):

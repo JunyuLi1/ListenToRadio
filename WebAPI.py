@@ -23,8 +23,6 @@ class WebAPI(ABC):
 
     def _download_url(self, url_to_download: str) -> dict:
         """Download url."""
-        # TODO: Implement web api request code in a way that supports
-        # all types of web APIs
         response = None
         r_obj = None
         try:

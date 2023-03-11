@@ -1,3 +1,13 @@
+# unit_test.py
+
+# Starter code for assignment 4 in ICS 32
+# Programming with Software Libraries in Python
+
+# Replace the following placeholders with your information.
+
+# Junyu Li
+# junyul24@uci.edu
+# 86676906
 """Module for testing functions"""
 import unittest
 from urllib import request
@@ -14,7 +24,7 @@ def download_data(message: str, apikey: str, webapi):
     return result
 
 
-class testOpenweather(unittest.TestCase):
+class Openweathertest(unittest.TestCase):
     """Test OpenWeather()"""
     def test_openweather_transclude(self):
         """test OpenWeather function"""
@@ -34,9 +44,17 @@ class testOpenweather(unittest.TestCase):
         # Assert Phrase
         assert message == result
 
+    def test_setapi(self):
+        """Test method set apikey."""
+        apikey = '03657b48a28c90947a8068f1f2608dfc'
+        open_weather = OpenWeather()
+        open_weather.set_apikey(apikey)
+        result = open_weather.apikey
+        assert apikey == result
 
-class testlastfm(unittest.TestCase):
-    """Test testlastfm()"""
+
+class lastfmtest(unittest.TestCase):
+    """Test lastfm"""
     def test_openweather_transclude(self):
         """test lastfm function"""
         # Organize Phrase
@@ -53,6 +71,14 @@ class testlastfm(unittest.TestCase):
         result = download_data("Testing lastFM: @lastfm", apikey, lastfm)
         # Assert Phrase
         assert message == result
+
+    def test_setapi2(self):
+        """Test method set apikey."""
+        apikey = '9e378b414d40568750b1dcbc42d0d6cd'
+        lastfm = LastFM()
+        lastfm.set_apikey(apikey)
+        result = lastfm.apikey
+        assert apikey == result
 
 
 if __name__ == "__main__":
